@@ -1,5 +1,6 @@
 import React from "react";
 import './Ticket.css';
+
 const fakeData = {
     price: '14 450',
         route: {
