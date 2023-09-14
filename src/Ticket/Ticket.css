@@ -1,0 +1,97 @@
+@font-face {
+    font-family: "OpenSans";
+    src: url("OpenSans-Regular.ttf") format("truetype");
+    font-weight: normal;
+  }
+
+
+
+.ticket {
+    width: 502px;
+    height: 184px;
+    margin: 0 auto;
+
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.ticket__title {
+    width: 462px;
+    height: 36px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+
+}
+
+.ticket__price {
+    font-size: 24px;
+    line-height: 24px;
+    width: 147px;
+    color: rgba(33, 150, 243, 1);
+    margin: auto 0 auto 0;
+    font-family: OpenSans;
+    font-weight: 600;
+}
+.ticket__logo {
+    height: 36px;
+    width: 110px;
+    background-image: url('./S7.jpg');
+}
+
+.ticket__flight-info {
+    width: 462px;
+    height: 38px;
+    margin: 16px auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ticket__route {
+
+    width: 140px;
+    height: 38px;
+
+}
+
+.ticket__cities-header {
+    width: 140px;
+    height: 18px;
+}
+.ticket__cities-time {
+    width: 140px;
+    height: 20px;
+}
+
+.ticket__travel-time {
+    width: 140px;
+    height: 38px;
+
+}
+
+.ticket__travel-time-header {
+    width: 140px;
+    height: 18px;
+}
+.ticket__travel-time-info {
+    width: 140px;
+    height: 20px;
+}
+
+.ticket__transfer {
+    width: 140px;
+    height: 38px;
+
+}
+
+.ticket__transfer-count {
+    width: 140px;
+    height: 18px;
+}
+.ticket__transfer-cities {
+    width: 140px;
+    height: 20px;
+}

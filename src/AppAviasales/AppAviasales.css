@@ -1,3 +1,18 @@
 .app-aviasales {
-    border: 2p solid green;
+  
+    background-color: rgba(243, 247, 250, 1);
+    width: 80%;
+    height: auto;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 100px;
+    
+
+}
+
+
+
+div {
+    border: 1px solid black;
+    box-sizing: border-box;
 }

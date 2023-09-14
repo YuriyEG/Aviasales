@@ -1,10 +1,15 @@
 
 import React from "react";
-import './AppAviasales.css';
+import Ticket from '../Ticket';
+
 
 
 const AppAviasales = () => {
-    return <h1>AppAviasales</h1>
+    return (
+        <div className="app-aviasales">
+            <Ticket />
+        </div>
+    )
 }
 
 export default AppAviasales;
