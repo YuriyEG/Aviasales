@@ -1,11 +1,13 @@
 .app-aviasales {
   
     background-color: rgba(243, 247, 250, 1);
-    width: 80%;
+    min-width: 520px;
+    max-width: 960px;
+
     height: auto;
     min-height: 500px;
     margin: 0 auto;
-    padding: 100px;
+    border: 1px solid black;
     
 
 }
@@ -20,3 +22,5 @@
     margin-right: auto;
     margin-bottom: 32px;
 }
+
+
