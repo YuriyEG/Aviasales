@@ -20,7 +20,6 @@
         padding-top: 20px;
         display: block;
 
-    
     }
 
     .filter-options__body {
@@ -98,8 +97,9 @@
 
 @media  screen and (max-width: 960px) and (min-width: 500px) {
     .filter-options {
-        min-width: 320px;
+
         max-width: 502px;
+
         width: 90%;
         height: auto;
         border-radius: 4px;
@@ -205,8 +205,9 @@
         padding-top: 20px;
         display: block;
         position: absolute;
-        left: 104px;
+        left: 112px;
         top: 0px;
+    
         
     
     
@@ -269,3 +270,4 @@
     
     }
 }
+
