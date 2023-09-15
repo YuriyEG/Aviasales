@@ -4,7 +4,8 @@ const FilterOptions = () => {
     return (
         <div className="filter-options">
             <div className="filter-options__header">КОЛИЧЕСТВО ПЕРЕСАДОК</div>
-            <div className="filter-options__option">
+                <div className="filter-options__body">
+                    <div className="filter-options__option">
                 <div className="filter-options__checkbox checked"></div>
                 <div className="filter-options__label">Все</div>
             </div>
@@ -24,6 +25,8 @@ const FilterOptions = () => {
                 <div className="filter-options__checkbox checked"></div>
                 <div className="filter-options__label">3 пересадки</div>
             </div>
+                </div>
+            
 
         </div>
     )
