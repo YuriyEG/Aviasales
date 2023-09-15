@@ -19,7 +19,7 @@ const AppAviasales = () => {
                 <Filter />
                 <FilterOptions />
                 {
-                    [1,3,3,4,5].map( node => <Ticket />)
+                    [1,3,3,4,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map( node => <Ticket />)
                 }
                 <FiveMoreButton />
             </div>

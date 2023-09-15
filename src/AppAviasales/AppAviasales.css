@@ -6,15 +6,15 @@
     .app-aviasales {
   
         background-color: rgba(243, 247, 250, 1);
-        min-width: 540px;
-        max-width: 960px;
+        width: 100%;
     
-        height: auto;
-        min-height: 500px;
+
+        min-height: 100%;
         margin: 0 auto;
 
-
+        min-height: 100vh;
         padding-top: 32px;
+
         
     
     }
@@ -30,9 +30,7 @@
         margin-bottom: 32px;
     }
 
-    .app-aviasales__main {
 
-    }
 }
 
 
@@ -46,10 +44,10 @@
         background-color: rgba(243, 247, 250, 1);
         width: 960px;
     
-        height: auto;
-        min-height: 500px;
         margin: 0 auto;
         padding-top: 32px;
+        min-height: 100vh;
+        border: 2px solid black;
         
     
     }
