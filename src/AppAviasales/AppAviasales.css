@@ -1,26 +1,73 @@
-.app-aviasales {
+
+
+
+
+@media  screen and (max-width: 960px) {
+    .app-aviasales {
   
-    background-color: rgba(243, 247, 250, 1);
-    min-width: 520px;
-    max-width: 960px;
-
-    height: auto;
-    min-height: 500px;
-    margin: 0 auto;
-    border: 1px solid black;
+        background-color: rgba(243, 247, 250, 1);
+        min-width: 540px;
+        max-width: 960px;
     
+        height: auto;
+        min-height: 500px;
+        margin: 0 auto;
 
+
+        padding-top: 32px;
+        
+    
+    }
+    
+    
+    .app-aviasales__logo {
+        background-image: url('./Logo.svg');
+        width: 90px;
+        height: 90px;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 32px;
+    }
+
+    .app-aviasales__main {
+
+    }
 }
 
 
-.app-aviasales__logo {
-    background-image: url('./Logo.svg');
-    width: 90px;
-    height: 90px;
-    background-repeat: no-repeat;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 32px;
+
+
+
+
+@media  screen and (min-width: 960px) {
+    .app-aviasales {
+  
+        background-color: rgba(243, 247, 250, 1);
+        width: 960px;
+    
+        height: auto;
+        min-height: 500px;
+        margin: 0 auto;
+        padding-top: 32px;
+        
+    
+    }
+    
+    
+    .app-aviasales__logo {
+        background-image: url('./Logo.svg');
+        width: 90px;
+        height: 90px;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 32px;
+    }
+    .app-aviasales__main {
+
+        padding-left: 272px;
+        position: relative;
+
+    }
 }
-
-

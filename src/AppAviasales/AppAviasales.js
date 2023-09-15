@@ -15,12 +15,15 @@ const AppAviasales = () => {
             
 
             <div className="app-aviasales__logo"></div>
-            <Filter />
-            <FilterOptions />
-            {
-                [1,3,3,4,5].map( node => <Ticket />)
-            }
-            <FiveMoreButton />
+            <div className="app-aviasales__main">
+                <Filter />
+                <FilterOptions />
+                {
+                    [1,3,3,4,5].map( node => <Ticket />)
+                }
+                <FiveMoreButton />
+            </div>
+
         </div>
     )
 }
