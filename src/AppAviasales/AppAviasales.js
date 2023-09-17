@@ -21,13 +21,11 @@ import { useEffect } from "react";
 const AppAviasales = () => {
 
 
-    const [filterMode, setFilterMode] = useState('cheap');
+    const [filterMode, setFilterMode] = useState('low');
     const [searchId, setSearchId] = useState(null);
     const [tickets, setTickets] = useState([]);
 
-    const [cheap, setCheap] = useState([]);
-    const [fast, setFast] = useState([]);
-    const [optimal, setOptimal] = useState([]);
+// 
     const [curTickets, setCurTickets] = useState([]);
     const [stopsAll, setStopsAll] = useState(true);
     const [stops1, setStops1] = useState(true);
@@ -37,14 +35,14 @@ const AppAviasales = () => {
     const [stopsCount, setStopsCount] = useState('all');
 
     let displayTickets;
-    if (filterMode === 'optimal') {
+    if (filterMode === 'opt') {
         displayTickets = [...curTickets];
     }
-    if (filterMode === 'cheap') {
+    if (filterMode === 'low') {
         displayTickets = [...curTickets].sort( (a, b) => a.price - b.price );
         
     }
-    if (filterMode === 'fast') {
+    if (filterMode === 'fst') {
         displayTickets = curTickets.sort( (a, b) => a.segments[0].duration - b.segments[0].duration );
     }
 
@@ -135,7 +133,18 @@ const AppAviasales = () => {
     useEffect( () => {
         console.log('актуальный список билетов', tickets);
     }, [tickets])
-
+    
+    const filterHandler = (e) => {
+        if (e.target.id === 'low') {
+            setFilterMode('low')
+        } 
+        if (e.target.id === 'fst') {
+            setFilterMode('fst');
+        }
+        if (e.target.id === 'opt') {
+            setFilterMode('opt');
+        }
+    }
 
    const handler = (e) => {
         let mode = e.target.id;
@@ -208,7 +217,7 @@ const AppAviasales = () => {
             <div className="app-aviasales__logo"></div>
             <div className="app-aviasales__main">
 
-                <Filter />
+                <Filter filterHandler={filterHandler} filterMode={filterMode} />
                 
                 <FilterOptions
                     stops1={stops1}
