@@ -33,7 +33,7 @@ const AppAviasales = () => {
     const [stops3, setStops3] = useState(true);
     const [stopsFree, setStopsFree] = useState(false);
     const [stopsCount, setStopsCount] = useState('all');
-    const [buttonLoading, setButtonLoading] = useState(false);
+ 
 
 
     let displayTickets;
@@ -49,21 +49,93 @@ const AppAviasales = () => {
     }
 
     let displayTickets2;
-    if (stopsCount === 'all') {
+    if (stopsAll === true ) {
         displayTickets2 = [...displayTickets];
     } 
-    if (stopsCount === 1) {
-        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length  === 1);
+    if (stopsFree === true ) {
+        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0 )
     }
-    if (stopsCount === 2) {
-        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2);
-    }
-    if (stopsCount === 3) {
-        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3);
-    }
-    if (stopsCount === 'no_stops') {
-        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0);
-    }
+    if (stops1 === true &&
+        stops2 === false &&
+        stops3 === false &&
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 1 )
+        }
+        if (stops1 === false &&
+            stops2 === true &&
+            stops3 === false &&
+            !stopsAll) {
+                displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2 )
+            }
+    if (stops1 === false &&
+        stops2 === false &&
+        stops3 === true &&
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3 )
+        }
+    if (stops1 === true &&
+        stops2 === true &&
+        stops3 === false &&
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => {
+                let x = node.segments[0].stops.length + node.segments[1].stops.length;
+                if (x === 1 || x === 2) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } )
+        }
+    if (stops1 === true &&
+        stops2 === true &&
+        stops3 === true &&
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => {
+                let x = node.segments[0].stops.length + node.segments[1].stops.length;
+                if (x === 1 || x === 2 || x === 3) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } )
+        }
+    if (stops1 === true &&
+        stops2 === false &&
+        stops3 === true &&
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => {
+                let x = node.segments[0].stops.length + node.segments[1].stops.length;
+                if (x === 1 ||  x === 3) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } )
+        }
+    if (stops1 === false &&
+        stops2 === true &&
+        stops3 === true && 
+        !stopsAll ) {
+            displayTickets2 = [...displayTickets].filter( node => {
+                let x = node.segments[0].stops.length + node.segments[1].stops.length;
+                if ( x === 2 || x === 3 ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } )
+        }
+
+    // if (stopsCount === 2) {
+    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2);
+    // }
+    // if (stopsCount === 3) {
+    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3);
+    // }
+    // if (stopsCount === 'no_stops') {
+    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0);
+    // }
+
 
 
 
@@ -227,7 +299,7 @@ const AppAviasales = () => {
                     stops3={stops3}
                     stopsAll={stopsAll}
                     stopsFree={stopsFree} setStopsCount={handler} />
-                <TicketList tickets={displayTickets2} buttonLoading={buttonLoading}/>
+                <TicketList tickets={displayTickets2}/>
 
 
             </div>
