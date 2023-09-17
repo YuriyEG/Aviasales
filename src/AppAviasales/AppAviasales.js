@@ -33,6 +33,8 @@ const AppAviasales = () => {
     const [stops3, setStops3] = useState(true);
     const [stopsFree, setStopsFree] = useState(false);
     const [stopsCount, setStopsCount] = useState('all');
+    const [buttonLoading, setButtonLoading] = useState(false);
+
 
     let displayTickets;
     if (filterMode === 'opt') {
@@ -225,7 +227,7 @@ const AppAviasales = () => {
                     stops3={stops3}
                     stopsAll={stopsAll}
                     stopsFree={stopsFree} setStopsCount={handler} />
-                <TicketList tickets={displayTickets2}/>
+                <TicketList tickets={displayTickets2} buttonLoading={buttonLoading}/>
 
 
             </div>
