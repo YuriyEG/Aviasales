@@ -1,11 +1,11 @@
 // const inc = () => ({ type: 'INC'}) ;
 
-const getAll = () => {
+// const getAll = () => {
 
 
-    return ({ type: 'ALL' })
+//     return ({ type: 'ALL' })
 
-}
+// }
 
-export default getAll;
+// export default getAll;
 

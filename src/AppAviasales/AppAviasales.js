@@ -18,48 +18,15 @@ import { useEffect } from "react";
 
 
 
-const AppAviasales = ({store}) => {
+const AppAviasales = () => {
 
-    // async function getId() {
-    //     fetch('https://aviasales-test-api.kata.academy/search')
-    // .then( res => res.json())
-    // .then( json =>  {
-    //   console.log(json);
-    //   store.dispatch({type: 'ALL', searchId: json.searchId })
-    //   return json;
-    // })
-    // .catch( err => console.log(err))
-    // }
-    
-    // async function getTickets(id) {
-    // fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`)
-    // .then( res => res.json())
-    // .then( json =>  {
-    //   console.log(json);
-    //   store.dispatch({type: 'TIC', data: json })
-    //   return json;
-    // })
-    // .catch( err => console.log(err))
-    // }
-
-    // useEffect(() => {
-    //     getId();
-
-    // }, [])
-
-    // setTimeout(() => {
-    //     const curId = store.getState().searchId;
-    //     console.log('curId', curId);
-    //     getTickets(curId);
-    //     setTimeout(() => {
-    //         console.log(store.getState());
-  
-    //     }, 1000);
-
-        
-    // }, 1000);
     const [searchId, setSearchId] = useState(null);
     const [tickets, setTickets] = useState([]);
+
+    const [cheap, setCheap] = useState([]);
+    const [fast, setFast] = useState([]);
+    const [optimal, setOptimal] = useState([]);
+    const [curTickets, setCurTickets] = useState([]);
 
 
     useEffect(() => {
@@ -97,14 +64,23 @@ const AppAviasales = ({store}) => {
                     setTickets((tickets) => {
                         let list = [...tickets, ...ticketsPart.tickets];
                         setTickets(list);
+                        if (curTickets.length === 0) {
+                            setCurTickets([...tickets]);                   
+                        }
+
+                    //                     if (!curTickets.length) {
+                    //     setCurTickets(list);
+                    // }    
+                    
                     });
+
                 
                     if (!ticketsPart.stop) {
               
                         console.log(ticketsPart.stop);
                         await subscribe();
                     }  else {
-                        console.log('all tickets is loaded');
+
                         await new Promise(resolve => setTimeout(resolve, 1000));
                     }
                 }
@@ -120,7 +96,7 @@ const AppAviasales = ({store}) => {
     }, [tickets])
 
 
-
+ 
 
     return (
         <div className="app-aviasales">
@@ -132,9 +108,9 @@ const AppAviasales = ({store}) => {
                 <Filter />
                 
                 <FilterOptions/>
-                <TicketList store={store} />
+                <TicketList tickets={curTickets}/>
 
-                <FiveMoreButton value={store.getState()} />
+
             </div>
 
         </div>

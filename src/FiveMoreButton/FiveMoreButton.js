@@ -1,9 +1,9 @@
 import React from "react";
 
 
-const FiveMoreButton = () => {
+const FiveMoreButton = ({onClick}) => {
     return (
-        <button className="five-more-button">ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ!</button>
+        <button className="five-more-button" onClick={onClick}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ!</button>
     )
 }
 
