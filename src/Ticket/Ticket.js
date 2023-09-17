@@ -41,9 +41,6 @@ const Ticket = ({ticket}) => {
             if (durMinutes > 59) {
                 durHours += Math.floor(durMinutes/60);
                 durMinutes = durMinutes%60;
-                if (durMinutes < 10) {
-                    durMinutes = '0' + durMinutes;
-                }
             }
             if (durHours > 23) {
                 durHours += Math.floor(durHours/24);
@@ -52,9 +49,17 @@ const Ticket = ({ticket}) => {
 
 
         if (minutes < 10) {
-            return `${hours}:0${minutes} - ${durHours}:${durMinutes}`;
+            if (durMinutes < 10) {
+                return `${hours}:0${minutes} - ${durHours}:0${durMinutes}`;
+            } else {
+                return `${hours}:0${minutes} - ${durHours}:${durMinutes}`;
+            }
         } else {
-            return `${hours}:${minutes} - ${durHours}:${durMinutes} `
+            if (durMinutes < 10) {
+                return `${hours}:${minutes} - ${durHours}:0${durMinutes} `
+            } else {
+                return `${hours}:${minutes} - ${durHours}:${durMinutes} `
+            }
         }
       
     }

@@ -20,6 +20,8 @@ import { useEffect } from "react";
 
 const AppAviasales = () => {
 
+
+    const [filterMode, setFilterMode] = useState('cheap');
     const [searchId, setSearchId] = useState(null);
     const [tickets, setTickets] = useState([]);
 
@@ -27,6 +29,45 @@ const AppAviasales = () => {
     const [fast, setFast] = useState([]);
     const [optimal, setOptimal] = useState([]);
     const [curTickets, setCurTickets] = useState([]);
+    const [stopsAll, setStopsAll] = useState(true);
+    const [stops1, setStops1] = useState(true);
+    const [stops2, setStops2] = useState(true);
+    const [stops3, setStops3] = useState(true);
+    const [stopsFree, setStopsFree] = useState(false);
+    const [stopsCount, setStopsCount] = useState('all');
+
+    let displayTickets;
+    if (filterMode === 'optimal') {
+        displayTickets = [...curTickets];
+    }
+    if (filterMode === 'cheap') {
+        displayTickets = [...curTickets].sort( (a, b) => a.price - b.price );
+        
+    }
+    if (filterMode === 'fast') {
+        displayTickets = curTickets.sort( (a, b) => a.segments[0].duration - b.segments[0].duration );
+    }
+
+    let displayTickets2;
+    if (stopsCount === 'all') {
+        displayTickets2 = [...displayTickets];
+    } 
+    if (stopsCount === 1) {
+        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length  === 1);
+    }
+    if (stopsCount === 2) {
+        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2);
+    }
+    if (stopsCount === 3) {
+        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3);
+    }
+    if (stopsCount === 'no_stops') {
+        displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0);
+    }
+
+
+
+
 
 
     useEffect(() => {
@@ -96,7 +137,69 @@ const AppAviasales = () => {
     }, [tickets])
 
 
- 
+   const handler = (e) => {
+        let mode = e.target.id;
+        console.log(mode);
+        if (mode === 'all' && stopsAll === false) {
+            setStops1(true); setStops2(true); setStops3(true); setStopsAll(true);
+            setStopsFree(false);
+        } else if (mode === 'all' && stopsAll === true) {
+            setStops1(false); setStops2(false); setStops3(false); setStopsAll(false); 
+            setStopsFree(true);
+        }
+        if (mode === '1' ) {
+            if (stopsAll === true) {
+                setStops1(false); setStopsAll(false);
+            } else if (stopsAll === false && stops1 === true) {
+                setStops1(false)
+            } else if (stopsAll === false && stops1 === false) {
+                setStops1(true);
+            } else if (stopsAll === false && stops1 === false ) {
+                setStops1(true);
+            }
+        }
+        if (mode === '2' ) {
+            if (stopsAll === true) {
+                setStops2(false); setStopsAll(false);
+            } else if (stopsAll === false && stops2 === true) {
+                setStops2(false)
+            } else if (stopsAll === false && stops2 === false) {
+                setStops2(true);
+            } else if (stopsAll === false && stops2 === false ) {
+                setStops2(true);
+            }
+        }
+        if (mode === '3' ) {
+            if (stopsAll === true) {
+                setStops3(false); setStopsAll(false);
+            } else if (stopsAll === false && stops3 === true) {
+                setStops3(false)
+            } else if (stopsAll === false && stops3 === false) {
+                setStops3(true);
+            } else if (stopsAll === false && stops3 === false ) {
+                setStops3(true);
+            }
+        }
+        if (mode === 'no_stops' && stopsFree === false) {
+            setStopsFree(true); setStops1(false); setStops2(false); setStops3(false); setStopsAll(false);
+        } else if (mode === 'no_stops' && stopsFree === true) {
+            setStopsFree(false); setStops1(true); setStops2(true); setStops3(true); setStopsAll(true);
+        }
+
+
+   }
+
+   useEffect(() => {
+        if (stops1 && stops2 && stops3 ) {
+            setStopsAll(true);
+        }
+        if (!stops1 && !stops2 && !stops3 ) {
+            setStopsFree(true);
+        }
+        if (stops1 || stops2 || stops3) {
+            setStopsFree(false);
+        }
+   }, [stops1, stops2, stops3, stopsAll, stopsFree])
 
     return (
         <div className="app-aviasales">
@@ -107,8 +210,13 @@ const AppAviasales = () => {
 
                 <Filter />
                 
-                <FilterOptions/>
-                <TicketList tickets={curTickets}/>
+                <FilterOptions
+                    stops1={stops1}
+                    stops2={stops2}
+                    stops3={stops3}
+                    stopsAll={stopsAll}
+                    stopsFree={stopsFree} setStopsCount={handler} />
+                <TicketList tickets={displayTickets2}/>
 
 
             </div>
