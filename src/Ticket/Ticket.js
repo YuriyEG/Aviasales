@@ -24,7 +24,7 @@ const transferCities = fakeData.tranfer.transferCities;
 
 const Ticket = () => {
 
-    
+
     return (
         <div className="ticket">
             <div className="ticket__title">

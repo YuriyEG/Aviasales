@@ -18,8 +18,8 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
 
-
-          <AppAviasales />
+       
+          <AppAviasales store={store}/>
     </Provider>
 
 
