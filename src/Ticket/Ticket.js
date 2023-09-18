@@ -48,7 +48,6 @@ const Ticket = ({ ticket }) => {
     return `${hours}:${minutes} - ${durHours}:${durMinutes} `;
   };
 
-  console.log(ticket);
   const { price, carrier } = ticket;
 
   const points1 = `${ticket.segments[0].origin} - ${ticket.segments[0].destination}`;
