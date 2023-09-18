@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 
 import Filter from '../Filter';
@@ -8,6 +7,7 @@ import TicketList from '../TicketList';
 const AppAviasales = () => {
   const [filterMode, setFilterMode] = useState('low');
   const [searchId, setSearchId] = useState(null);
+  /* eslint-disable-next-line */
   const [tickets, setTickets] = useState([]);
   const [curTickets, setCurTickets] = useState([]);
   const [stopsAll, setStopsAll] = useState(true);
@@ -15,7 +15,6 @@ const AppAviasales = () => {
   const [stops2, setStops2] = useState(true);
   const [stops3, setStops3] = useState(true);
   const [stopsFree, setStopsFree] = useState(false);
-  const [stopsCount, setStopsCount] = useState('all');
 
   let displayTickets;
   if (filterMode === 'opt') {
@@ -93,12 +92,9 @@ const AppAviasales = () => {
     fetch('https://aviasales-test-api.kata.academy/search')
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
-
         setSearchId(json.searchId);
         return json;
-      })
-      .catch((err) => console.log(err));
+      });
   }, []);
 
   useEffect(() => {
@@ -108,12 +104,13 @@ const AppAviasales = () => {
       if (response.status === 502 || response.status === 500) {
         await subscribe();
       } else if (response.status !== 200) {
-        console.log(response.statusText);
+        /* eslint-disable-next-line */
         await new Promise((resolve) => setTimeout(resolve, 1000));
         await subscribe();
       } else {
         const ticketsPart = await response.json();
 
+        /* eslint-disable */
         setTickets((tickets) => {
           const list = [...tickets, ...ticketsPart.tickets];
           setTickets(list);
@@ -121,11 +118,12 @@ const AppAviasales = () => {
             setCurTickets([...tickets]);
           }
         });
+        /* eslint-enable */
 
         if (!ticketsPart.stop) {
-          console.log(ticketsPart.stop);
           await subscribe();
         } else {
+          /* eslint-disable-next-line */
           await new Promise((resolve) => setTimeout(resolve, 1000));
         }
       }
@@ -134,10 +132,6 @@ const AppAviasales = () => {
       subscribe();
     }
   }, [searchId]);
-
-  useEffect(() => {
-    console.log('актуальный список билетов', tickets);
-  }, [tickets]);
 
   const filterHandler = (e) => {
     if (e.target.id === 'low') {
@@ -153,7 +147,6 @@ const AppAviasales = () => {
 
   const handler = (e) => {
     const mode = e.target.id;
-    console.log(mode);
     if (mode === 'all' && stopsAll === false) {
       setStops1(true);
       setStops2(true);
