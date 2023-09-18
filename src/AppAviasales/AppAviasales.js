@@ -97,37 +97,37 @@ const AppAviasales = () => {
       });
   }, []);
 
-  useEffect(() => {
-    async function subscribe() {
-      const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+  async function subscribe() {
+    const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
 
-      if (response.status === 502 || response.status === 500) {
-        await subscribe();
-      } else if (response.status !== 200) {
-        /* eslint-disable-next-line */
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (response.status === 502 || response.status === 500) {
+      await subscribe();
+    } else if (response.status !== 200) {
+      /* eslint-disable-next-line */
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await subscribe();
+    } else {
+      const ticketsPart = await response.json();
+
+      /* eslint-disable */
+      setTickets((tickets) => {
+        const list = [...tickets, ...ticketsPart.tickets];
+        setTickets(list);
+        if (curTickets.length === 0) {
+          setCurTickets([...tickets]);
+        }
+      });
+      /* eslint-enable */
+
+      if (!ticketsPart.stop) {
         await subscribe();
       } else {
-        const ticketsPart = await response.json();
-
-        /* eslint-disable */
-        setTickets((tickets) => {
-          const list = [...tickets, ...ticketsPart.tickets];
-          setTickets(list);
-          if (curTickets.length === 0) {
-            setCurTickets([...tickets]);
-          }
-        });
-        /* eslint-enable */
-
-        if (!ticketsPart.stop) {
-          await subscribe();
-        } else {
-          /* eslint-disable-next-line */
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-        }
+        /* eslint-disable-next-line */
+        await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     }
+  }
+  useEffect(() => {
     if (searchId !== null) {
       subscribe();
     }
