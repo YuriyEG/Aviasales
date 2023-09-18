@@ -1,11 +1,8 @@
-
+/* eslint-disable */ 
 import React, { useState } from "react";
-import Ticket from '../Ticket';
+
 import Filter from '../Filter';
 import FilterOptions from "../FilterOptions";
-import FiveMoreButton from '../FiveMoreButton';
-import store from "../store/store";
-import getAll from "../store/actions";
 import TicketList from '../TicketList';
 
 import { useEffect } from "react";
@@ -24,8 +21,6 @@ const AppAviasales = () => {
     const [filterMode, setFilterMode] = useState('low');
     const [searchId, setSearchId] = useState(null);
     const [tickets, setTickets] = useState([]);
-
-// 
     const [curTickets, setCurTickets] = useState([]);
     const [stopsAll, setStopsAll] = useState(true);
     const [stops1, setStops1] = useState(true);
@@ -126,21 +121,6 @@ const AppAviasales = () => {
             } )
         }
 
-    // if (stopsCount === 2) {
-    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2);
-    // }
-    // if (stopsCount === 3) {
-    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3);
-    // }
-    // if (stopsCount === 'no_stops') {
-    //     displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0);
-    // }
-
-
-
-
-
-
 
     useEffect(() => {
 
@@ -181,10 +161,6 @@ const AppAviasales = () => {
                             setCurTickets([...tickets]);                   
                         }
 
-                    //                     if (!curTickets.length) {
-                    //     setCurTickets(list);
-                    // }    
-                    
                     });
 
                 
@@ -268,8 +244,6 @@ const AppAviasales = () => {
         } else if (mode === 'no_stops' && stopsFree === true) {
             setStopsFree(false); setStops1(true); setStops2(true); setStops3(true); setStopsAll(true);
         }
-
-
    }
 
    useEffect(() => {
@@ -286,13 +260,9 @@ const AppAviasales = () => {
 
     return (
         <div className="app-aviasales">
-            
-
             <div className="app-aviasales__logo"></div>
             <div className="app-aviasales__main">
-
                 <Filter filterHandler={filterHandler} filterMode={filterMode} />
-                
                 <FilterOptions
                     stops1={stops1}
                     stops2={stops2}
@@ -300,10 +270,7 @@ const AppAviasales = () => {
                     stopsAll={stopsAll}
                     stopsFree={stopsFree} setStopsCount={handler} />
                 <TicketList tickets={displayTickets2}/>
-
-
             </div>
-
         </div>
     )
 }

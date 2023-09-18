@@ -2,10 +2,8 @@
 
 // const getAll = () => {
 
-
 //     return ({ type: 'ALL' })
 
 // }
 
 // export default getAll;
-

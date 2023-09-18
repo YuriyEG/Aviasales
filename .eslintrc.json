@@ -8,6 +8,7 @@
     "airbnb/base",
     "eslint:recommended",
     "plugin:react/recommended",
+    // "plugin:react/jsx-runtime",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
@@ -28,7 +29,7 @@
     // "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
-    "import/no-unresolved": [2, { "caseSensitive": false }],
+    // "import/no-unresolved": [2, { "caseSensitive": false }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/order": [
       2,
