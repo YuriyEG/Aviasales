@@ -6,7 +6,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 const initialState = {
-  progress: 17,
   filterMode: 'opt',
   searchId: null,
   tickets: [],
@@ -26,10 +25,9 @@ const reducer = (state = initialState, action) => {
     return { ...state, curTickets: [...action.tickets] };
   }
   if (action.type === 'LTK') {
-    // console.log('polucheno:', action.tickets);
-    // console.log('bilo:', state.tickets);
+
     const newList = [...state.tickets, ...action.tickets];
-    // console.log('obschiy massiv', newList);
+
     return { ...state, tickets: newList };
   }
   if (action.type === 'IDL') {
@@ -208,8 +206,6 @@ const reducer = (state = initialState, action) => {
 };
 
 const store = configureStore({ reducer }, composeWithDevTools(thunk));
-// store.subscribe(() => {
-//   console.log(store.getState());
-// });
+
 
 export default store;

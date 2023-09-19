@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Loader = ({ percents }) => {
-  const loadingStyle = percents < 120 ? { width: `${percents}%` } : null;
+  const loadingStyle = percents < 95 ? { width: `${percents}%` } : null;
   return (
     <div className="loader-box">
       <div className="loader-line" style={loadingStyle}></div>

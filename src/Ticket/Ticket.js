@@ -4,6 +4,8 @@ import React from 'react';
 import './Ticket.css';
 
 const Ticket = ({ ticket }) => {
+
+  console.log(ticket);
   const getStopsCounts = (stops) => {
     if (stops.length === 0) {
       return 'БЕЗ ПЕРЕСАДОК';

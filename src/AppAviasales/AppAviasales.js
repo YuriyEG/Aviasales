@@ -24,12 +24,6 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
       displayTickets = [...state.tickets].sort( (a, b) => a.segments[0].duration - b.segments[0].duration );
   }
 
-  
-
-
-
-  
-
   let displayTickets2;
   if (state.stopsAll === true ) {
       displayTickets2 = [...displayTickets];
@@ -145,7 +139,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
     }
   }, [state.searchId]);
 
-  const percents = Math.round(100*(state.tickets.length)/7000);
+  const percents = Math.round(100*(state.tickets.length)/17000);
 
   return (
     <div className="app-aviasales">
