@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 const initialState = {
+  progress: 17,
   filterMode: 'opt',
   searchId: null,
   tickets: [],

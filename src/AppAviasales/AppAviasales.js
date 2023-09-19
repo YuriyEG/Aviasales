@@ -7,6 +7,7 @@ import Filter from '../Filter';
 import FilterOptions from '../FilterOptions';
 import TicketList from '../TicketList';
 import { schLoad, loadTicks, loadCur } from '../store/actions';
+import Loader from '../Loader';
 
 const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
   const getFilteredTickets = (recTicks, filtMode, stops1, stops2, stops3, stopsAll, stopsFree) => {
@@ -126,14 +127,15 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
     }
   }, [state.tickets]);
 
+  const percents = Math.round(100*(state.tickets.length)/17000);
+
   return (
     <div className="app-aviasales">
       <div className="app-aviasales__logo"></div>
       <div className="app-aviasales__main">
         <Filter />
-        {/* <h1>
-          Загружено всего {state.tickets.length}, текущих {state.curTickets.length}
-        </h1> */}
+        <Loader percents={percents}/>
+        
         <FilterOptions />
         <TicketList />
       </div>
