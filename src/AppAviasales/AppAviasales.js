@@ -10,81 +10,105 @@ import { schLoad, loadTicks, loadCur } from '../store/actions';
 import Loader from '../Loader';
 
 const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
-  const getFilteredTickets = (recTicks, filtMode, stops1, stops2, stops3, stopsAll, stopsFree) => {
-    let outPutTicks;
-    if (filtMode === 'opt') {
-      outPutTicks = [...recTicks];
-    }
-    if (filtMode === 'low') {
-      outPutTicks = [...recTicks].sort((a, b) => a.price - b.price);
-    }
-    if (filtMode === 'fst') {
-      outPutTicks = [...recTicks].sort((a, b) => a.segments[0].duration - b.segments[0].duration);
-    }
-    let outPutTicks2;
-    if (stopsAll === true) {
-      outPutTicks2 = [...outPutTicks];
-    }
-    if (stopsFree === true) {
-      outPutTicks2 = [...outPutTicks].filter(
-        (node) => node.segments[0].stops.length + node.segments[1].stops.length === 0
-      );
-    }
-    if (stops1 === true && stops2 === false && stops3 === false && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter(
-        (node) => node.segments[0].stops.length + node.segments[1].stops.length === 1
-      );
-    }
 
-    if (stops1 === false && stops2 === true && stops3 === false && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter(
-        (node) => node.segments[0].stops.length + node.segments[1].stops.length === 2
-      );
-    }
-    if (stops1 === false && stops2 === false && stops3 === true && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter(
-        (node) => node.segments[0].stops.length + node.segments[1].stops.length === 3
-      );
-    }
-    if (stops1 === true && stops2 === true && stops3 === false && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter((node) => {
-        const x = node.segments[0].stops.length + node.segments[1].stops.length;
-        if (x === 1 || x === 2) {
-          return true;
-        }
-        return false;
-      });
-    }
 
-    if (stops1 === true && stops2 === true && stops3 === true && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter((node) => {
-        const x = node.segments[0].stops.length + node.segments[1].stops.length;
-        if (x === 1 || x === 2 || x === 3) {
-          return true;
-        }
-        return false;
-      });
-    }
-    if (stops1 === true && stops2 === false && stops3 === true && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter((node) => {
-        const x = node.segments[0].stops.length + node.segments[1].stops.length;
-        if (x === 1 || x === 3) {
-          return true;
-        }
-        return false;
-      });
-    }
-    if (stops1 === false && stops2 === true && stops3 === true && !stopsAll) {
-      outPutTicks2 = [...outPutTicks].filter((node) => {
-        const x = node.segments[0].stops.length + node.segments[1].stops.length;
-        if (x === 2 || x === 3) {
-          return true;
-        }
-        return false;
-      });
-    }
-    return outPutTicks2;
-  };
+  let displayTickets;
+  if (state.filterMode === 'opt') {
+      displayTickets = [...state.tickets];
+  }
+  if (state.filterMode === 'low') {
+      displayTickets = [...state.tickets].sort( (a, b) => a.price - b.price );
+      
+  }
+  if (state.filterMode === 'fst') {
+      displayTickets = [...state.tickets].sort( (a, b) => a.segments[0].duration - b.segments[0].duration );
+  }
+
+  
+
+
+
+  
+
+  let displayTickets2;
+  if (state.stopsAll === true ) {
+      displayTickets2 = [...displayTickets];
+  } 
+  if (state.stopsFree === true ) {
+      displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0 )
+  }
+  if (state.stops1 === true &&
+      state.stops2 === false &&
+      state.stops3 === false &&
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 1 )
+      }
+      if (state.stops1 === false &&
+          state.stops2 === true &&
+          state.stops3 === false &&
+          !state.stopsAll) {
+              displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2 )
+          }
+  if (state.stops1 === false &&
+      state.stops2 === false &&
+      state.stops3 === true &&
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3 )
+      }
+  if (state.stops1 === true &&
+      state.stops2 === true &&
+      state.stops3 === false &&
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => {
+              let x = node.segments[0].stops.length + node.segments[1].stops.length;
+              if (x === 1 || x === 2) {
+                  return true;
+              } else {
+                  return false;
+              }
+          } )
+      }
+  if (state.stops1 === true &&
+      state.stops2 === true &&
+      state.stops3 === true &&
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => {
+              let x = node.segments[0].stops.length + node.segments[1].stops.length;
+              if (x === 1 || x === 2 || x === 3) {
+                  return true;
+              } else {
+                  return false;
+              }
+          } )
+      }
+  if (state.stops1 === true &&
+      state.stops2 === false &&
+      state.stops3 === true &&
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => {
+              let x = node.segments[0].stops.length + node.segments[1].stops.length;
+              if (x === 1 ||  x === 3) {
+                  return true;
+              } else {
+                  return false;
+              }
+          } )
+      }
+  if (state.stops1 === false &&
+      state.stops2 === true &&
+      state.stops3 === true && 
+      !state.stopsAll ) {
+          displayTickets2 = [...displayTickets].filter( node => {
+              let x = node.segments[0].stops.length + node.segments[1].stops.length;
+              if ( x === 2 || x === 3 ) {
+                  return true;
+              } else {
+                  return false;
+              }
+          } )
+      }
+
+
 
   useEffect(() => {
     fetch('https://aviasales-test-api.kata.academy/search')
@@ -131,7 +155,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
         <Loader percents={percents}/>
         
         <FilterOptions />
-        <TicketList />
+        <TicketList displayTickets={displayTickets2}/>
       </div>
     </div>
   );
