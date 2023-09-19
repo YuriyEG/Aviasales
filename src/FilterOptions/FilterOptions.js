@@ -1,19 +1,21 @@
-import React from 'react';
+/* eslint-disable */
 
-const FilterOptions = ({ setStopsCount, stops1, stops2, stops3, stopsAll, stopsFree }) => {
-  let class1 = 'filter-options__checkbox';
-  class1 += stops1 ? ' checked' : '';
-  let class2 = 'filter-options__checkbox';
-  class2 += stops2 ? ' checked' : '';
-  let class3 = 'filter-options__checkbox';
-  class3 += stops3 ? ' checked' : '';
-  let classAll = 'filter-options__checkbox';
-  classAll += stopsAll ? ' checked' : '';
-  let classFree = 'filter-options__checkbox';
-  classFree += stopsFree ? ' checked' : '';
+
+
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { setStp } from '../store/actions';
+
+const FilterOptions = ({ state, setStops }) => {
+  const class1 = !state.stops1 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
+  const class2 = !state.stops2 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
+  const class3 = !state.stops3 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
+  const classAll = !state.stopsAll ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
+  const classFree = !state.stopsFree ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
 
   return (
-    <div className="filter-options" onClick={setStopsCount}>
+    <div className="filter-options" onClick={setStops}>
       <div className="filter-options__header">КОЛИЧЕСТВО ПЕРЕСАДОК</div>
       <div className="filter-options__body">
         <div className="filter-options__option">
@@ -41,4 +43,13 @@ const FilterOptions = ({ setStopsCount, stops1, stops2, stops3, stopsAll, stopsF
   );
 };
 
-export default FilterOptions;
+const mapStateToProps = (state) => {
+  return { state };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStops: (e) => dispatch(setStp(e.target.id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterOptions);
