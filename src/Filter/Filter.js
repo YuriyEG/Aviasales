@@ -1,35 +1,11 @@
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { fltMode } from '../store/actions';
 
 const Filter = ({ state, switchMode }) => {
-
-  const [hover, setHover] = useState({opacity: '100%'});
-  const [hover2, setHover2] = useState({opacity: '100%'});
-  const [hover3, setHover3] = useState({opacity: '100%'});
-
-  const over1 = () => {
-    setHover({backgroundColor: 'rgba(33, 150, 243, 1)', opacity: '30%', color: 'white', border: 'rgba(33, 150, 243, 1)'});
-  }
-  const leave1 = () => {
-    setHover({opacity: '100%'});
-  }
-  const over2 = () => {
-    setHover2({backgroundColor: 'rgba(33, 150, 243, 1)', opacity: '30%', color: 'white', border: 'rgba(33, 150, 243, 1)' });
-  }
-  const leave2 = () => {
-    setHover2({opacity: '100%'});
-  }
-  const over3 = () => {
-    setHover3({backgroundColor: 'rgba(33, 150, 243, 1)', opacity: '30%', color: 'white', border: 'rgba(33, 150, 243, 1)'});
-  }
-  const leave3 = () => {
-    setHover3({opacity: '100%'});
-  }
-
   let lowClass;
   let fstClass;
   let optClass;
@@ -45,14 +21,13 @@ const Filter = ({ state, switchMode }) => {
 
   return (
     <div className="filter" onClick={switchMode}>
-      <div className="filter__tab" onMouseOver={over1} onMouseLeave={leave1} style={{...hover, ...lowClass}} id="low">
+      <div className="filter__tab" style={lowClass} id="low">
         САМЫЙ ДЕШЕВЫЙ
       </div>
-      <div className="filter__tab"  onMouseOver={over2} onMouseLeave={leave2} style={{...hover2, ...fstClass}} id="fst">
-     
+      <div className="filter__tab" style={fstClass} id="fst">
         САМЫЙ БЫСТРЫЙ
       </div>
-      <div className="filter__tab"  onMouseOver={over3} onMouseLeave={leave3} style={{...hover3, ...optClass}} id="opt">
+      <div className="filter__tab" style={optClass} id="opt">
         ОПТИМАЛЬНЫЙ
       </div>
     </div>
