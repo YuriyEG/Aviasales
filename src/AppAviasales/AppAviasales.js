@@ -131,9 +131,9 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
       <div className="app-aviasales__logo"></div>
       <div className="app-aviasales__main">
         <Filter />
-        <h1>
+        {/* <h1>
           Загружено всего {state.tickets.length}, текущих {state.curTickets.length}
-        </h1>
+        </h1> */}
         <FilterOptions />
         <TicketList />
       </div>
