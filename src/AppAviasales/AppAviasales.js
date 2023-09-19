@@ -121,12 +121,6 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
     }
   }, [state.searchId]);
 
-  useEffect(() => {
-    if (state.curTickets.length === 0) {
-      console.log('Boommmmmmmm');
-    }
-  }, [state.tickets]);
-
   const percents = Math.round(100*(state.tickets.length)/7000);
 
   return (
