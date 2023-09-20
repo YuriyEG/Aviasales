@@ -10,7 +10,10 @@ const Filter = ({ state, switchMode }) => {
   let fstClass;
   let optClass;
   if (state.filterMode === 'low') {
-    lowClass = { backgroundColor: 'rgba(33, 150, 243, 1)', border: '1px solid rgba(33, 150, 243, 1)', color: 'white' };
+
+          lowClass = { backgroundColor: 'rgba(33, 150, 243, 1)', border: '1px solid rgba(33, 150, 243, 1)', color: 'white' };
+
+
   }
   if (state.filterMode === 'fst') {
     fstClass = { backgroundColor: 'rgba(33, 150, 243, 1)', border: '1px solid rgba(33, 150, 243, 1)', color: 'white' };
@@ -40,7 +43,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     switchMode: (e) => {
-      dispatch(fltMode(e.target.id));
+      setTimeout(() => {
+        dispatch(fltMode(e.target.id));
+      }, 200);
+      
     },
   };
 };
