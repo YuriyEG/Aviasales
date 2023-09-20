@@ -33,7 +33,7 @@
         box-sizing: border-box;
         
     }
-    
+
     .filter__tab:nth-child(1) {
         border: 1px solid rgba(223, 229, 236, 1);
     
@@ -203,9 +203,10 @@
 }
 
 
-.filter__tab-checked {
-    background-color: rgba(33, 150, 243, 1);
-    border: 1px solid rgba(33, 150, 243, 1);
-    color: white;
-}
 
+
+
+
+.filter__tab:hover {
+    background-color: rgb(239, 247, 255);
+}

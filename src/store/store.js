@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
   }
   if (action.type === 'SPS') {
     const { stops1, stops2, stops3, stopsAll, stopsFree } = state;
-    if (action.mode === 'all') {
+    if (action.mode === 'all' || action.mode === 'all-2') {
       if (!stopsAll) {
         return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
       }

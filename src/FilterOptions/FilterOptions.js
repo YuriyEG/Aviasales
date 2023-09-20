@@ -18,25 +18,25 @@ const FilterOptions = ({ state, setStops }) => {
     <div className="filter-options" onClick={setStops}>
       <div className="filter-options__header">КОЛИЧЕСТВО ПЕРЕСАДОК</div>
       <div className="filter-options__body">
-        <div className="filter-options__option">
+        <div className="filter-options__option" id="all">
           <div className={classAll} id="all"></div>
-          <div className="filter-options__label">Все</div>
+          <div className="filter-options__label" id="all">Все</div>
         </div>
-        <div className="filter-options__option">
+        <div className="filter-options__option" id="no_stops">
           <div className={classFree} id="no_stops"></div>
-          <div className="filter-options__label">Без пересадок</div>
+          <div className="filter-options__label" id="no_stops">Без пересадок</div>
         </div>
-        <div className="filter-options__option">
+        <div className="filter-options__option" id='1'>
           <div className={class1} id="1"></div>
-          <div className="filter-options__label">1 пересадка</div>
+          <div className="filter-options__label" id="1">1 пересадка</div>
         </div>
-        <div className="filter-options__option">
+        <div className="filter-options__option" id="2">
           <div className={class2} id="2"></div>
-          <div className="filter-options__label">2 пересадки</div>
+          <div className="filter-options__label" id="2">2 пересадки</div>
         </div>
-        <div className="filter-options__option">
+        <div className="filter-options__option" id="3">
           <div className={class3} id="3"></div>
-          <div className="filter-options__label">3 пересадки</div>
+          <div className="filter-options__label" id="3">3 пересадки</div>
         </div>
       </div>
     </div>

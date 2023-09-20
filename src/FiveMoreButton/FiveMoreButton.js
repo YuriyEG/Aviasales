@@ -19,7 +19,7 @@ const FiveMoreButton = ({ state, buttonLoading }) => {
   }
   return (
     <div>
-      <button className="five-more-button" style={hoverOn} onMouseLeave={hoverOf} onMouseOver={hover} onClick={buttonLoading}>
+      <button className="five-more-button" onMouseLeave={hoverOf} onMouseOver={hover} onClick={buttonLoading}>
         {state.buttonLoading ? <Spin indicator={antIcon} /> : 'ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ! '}
       </button>
     </div>
