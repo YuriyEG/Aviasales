@@ -19,6 +19,9 @@ const initialState = {
 };
 // eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {
+  if (action.type === 'APT') {
+    return { ...state, endPoint: state.endPoint + 5 }
+  }
   if (action.type === 'LCK') {
     return { ...state, curTickets: [...action.tickets] };
   }
@@ -35,9 +38,8 @@ const reducer = (state = initialState, action) => {
     return { ...state, filterMode: action.mode };
   }
   if (action.type === 'BTL') {
-    const newPoint = state.endPoint + 5;
     if (action.flag) {
-      return { ...state, buttonLoading: action.flag, endPoint: newPoint };
+      return { ...state, buttonLoading: action.flag };
     }
     return { ...state, buttonLoading: action.flag };
   }

@@ -139,7 +139,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad }) => {
     }
   }, [state.searchId]);
 
-  const percents = Math.round(100*(state.tickets.length)/17200);
+  const percents = Math.round(100*(state.tickets.length)/10000);
 
   return (
     <div className="app-aviasales">

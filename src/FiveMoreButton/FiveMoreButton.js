@@ -5,12 +5,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { connect } from 'react-redux';
 
-import { buttLoad } from '../store/actions';
-
-
-
-
-
+import { buttLoad, changePoint } from '../store/actions';
 
 
 const FiveMoreButton = ({ state, buttonLoading }) => {
@@ -37,10 +32,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     buttonLoading: () => {
-      dispatch(buttLoad(true));
-      setTimeout(() => {
-        dispatch(buttLoad(false));
-      }, 600);
+        dispatch(buttLoad(true));
+        setTimeout(() => {
+          dispatch(changePoint());
+          dispatch(buttLoad(false));
+        }, 500);
     },
   };
 };
