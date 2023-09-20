@@ -9,15 +9,13 @@ const initialState = {
   filterMode: 'opt',
   searchId: null,
   tickets: [],
-  curTickets: [],
   stops1: true,
   stops2: true,
   stops3: true,
   stopsAll: true,
   stopsFree: false,
   buttonLoading: false,
-  endPoint: 5,
-  first: 'first',
+  endPoint: 5
 };
 // eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {

@@ -9,7 +9,7 @@ import TicketList from '../TicketList';
 import { schLoad, loadTicks, loadCur } from '../store/actions';
 import Loader from '../Loader';
 
-const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
+const AppAviasales = ({ state, searchIdLoad, ticketsLoad }) => {
 
 
   let displayTickets;
@@ -139,7 +139,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, curTicksLoad }) => {
     }
   }, [state.searchId]);
 
-  const percents = Math.round(100*(state.tickets.length)/17000);
+  const percents = Math.round(100*(state.tickets.length)/10000);
 
   return (
     <div className="app-aviasales">
@@ -165,9 +165,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     ticketsLoad: (tcks) => {
       dispatch(loadTicks(tcks));
-    },
-    curTicksLoad: (ticks) => {
-      dispatch(loadCur(ticks));
     },
   };
 };
