@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import thunk from 'redux-thunk';
+
 
 const initialState = {
   filterMode: 'opt',
@@ -15,10 +15,18 @@ const initialState = {
   stopsAll: true,
   stopsFree: false,
   buttonLoading: false,
-  endPoint: 5
+  endPoint: 5,
+  message: 'Чтото пошло не так',
+  success: false,
 };
 // eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {
+  if (action.type === 'SCF') {
+    return { ...state, success: action.flag }
+  }
+  if (action.type === 'MSG') {
+    return { ...state, message: action.value }
+  }
   if (action.type === 'APT') {
     return { ...state, endPoint: state.endPoint + 5 }
   }
@@ -205,7 +213,24 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const store = configureStore({ reducer }, composeWithDevTools(thunk));
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    }) : compose;
+
+
+function loggerMiddleWare(store) {
+  return function(next) {
+    return function(action) {
+      const result = next(action);
+      console.log('middleware: ',result);
+      return result;
+    }
+  }
+}
+
+const store = configureStore({ reducer }, composeEnhancers(applyMiddleware(loggerMiddleWare, thunk)));
 
 
 export default store;

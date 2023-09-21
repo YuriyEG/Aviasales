@@ -1,15 +1,26 @@
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { connect } from 'react-redux';
+import { Online, Offline } from 'react-detect-offline';
 
 import Filter from '../Filter';
+import Alert from '../Alert';
 import FilterOptions from '../FilterOptions';
 import TicketList from '../TicketList';
-import { schLoad, loadTicks, loadCur } from '../store/actions';
+import { schLoad, loadTicks, loadCur, showMessage, setSuccess } from '../store/actions';
 import Loader from '../Loader';
 
-const AppAviasales = ({ state, searchIdLoad, ticketsLoad }) => {
+const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccessStatus }) => {
+
+  const [serverError, setServerError] = useState(false);
+
+  const showServerError = () => {
+    setServerError(true);
+    setTimeout(() => {
+      setServerError(false);
+    }, 8000);
+  }
 
 
   let displayTickets;
@@ -108,14 +119,18 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad }) => {
     fetch('https://aviasales-test-api.kata.academy/search')
       .then((res) => res.json())
       .then((json) => {
+        
         searchIdLoad(json.searchId);
-      });
+      })
+      .catch( () => setSuccess(false))
   }, []);
 
   async function subscribe() {
     const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${state.searchId}`);
 
     if (response.status === 502 || response.status === 500) {
+      if(!serverError) showServerError();
+      
       await subscribe();
     } else if (response.status !== 200) {
       /* eslint-disable-next-line */
@@ -145,9 +160,15 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad }) => {
     <div className="app-aviasales">
       <div className="app-aviasales__logo"></div>
       <div className="app-aviasales__main">
+        
         <Filter />
+        { serverError ? <Alert message={'Ошибка сервера'}/> : null }
+        <Offline>
+          <Alert message={'Нет соединения'}/>
+        </Offline>
         <Loader percents={percents}/>
         
+
         <FilterOptions />
         <TicketList displayTickets={displayTickets2}/>
       </div>
@@ -166,6 +187,12 @@ const mapDispatchToProps = (dispatch) => {
     ticketsLoad: (tcks) => {
       dispatch(loadTicks(tcks));
     },
+    setMessage: (value) => {
+      dispatch(showMessage(value));
+    },  
+    setSuccessStatus: (flag) => {
+      dispatch(setSuccess(flag))
+    }
   };
 };
 

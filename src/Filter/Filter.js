@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     switchMode: (e) => {
       setTimeout(() => {
         dispatch(fltMode(e.target.id));
-      }, 200);
+      }, 50);
       
     },
   };
