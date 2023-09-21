@@ -1,4 +1,9 @@
 
+@font-face {
+    font-family: "Medium";
+    src: url("OpenSans-Medium.ttf") format("truetype");
+    font-weight: 900;
+}
 
 
 
@@ -69,3 +74,16 @@
     }
 }
 
+.app-aviasales__note {
+    font-family: "Medium", Arial, Helvetica, sans-serif;
+    text-align: center;
+    max-width: 400px;
+    min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}

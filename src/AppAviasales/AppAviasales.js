@@ -160,6 +160,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
     <div className="app-aviasales">
       <div className="app-aviasales__logo"></div>
       <div className="app-aviasales__main">
+       
         
         <Filter />
         { serverError ? <Alert message={'Ошибка сервера'}/> : null }
@@ -170,6 +171,10 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
         
 
         <FilterOptions />
+        {/* {
+          !displayTickets2.length ? <div class='app-aviasales__note'>Рейсов, подходящих под заданные фильтры, не найдено</div> : null
+        } */}
+        
         <TicketList displayTickets={displayTickets2}/>
       </div>
     </div>
