@@ -5,9 +5,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setStp } from '../store/actions';
+import { setCheckBoxes } from '../store/actions';
 
-const FilterOptions = ({ state, setStops }) => {
+const FilterOptions = ({ state, initSetCheckBoxes }) => {
   const class1 = !state.stops1 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
   const class2 = !state.stops2 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
   const class3 = !state.stops3 ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
@@ -15,7 +15,7 @@ const FilterOptions = ({ state, setStops }) => {
   const classFree = !state.stopsFree ? 'filter-options__checkbox' : 'filter-options__checkbox checked';
 
   return (
-    <div className="filter-options" onClick={setStops}>
+    <div className="filter-options" onClick={initSetCheckBoxes}>
       <div className="filter-options__header">КОЛИЧЕСТВО ПЕРЕСАДОК</div>
       <div className="filter-options__body">
         <div className="filter-options__option" id="all">
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setStops: (e) => dispatch(setStp(e.target.id)),
+    initSetCheckBoxes: (e) => dispatch(setCheckBoxes(e.target.id)),
   };
 };
 

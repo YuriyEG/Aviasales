@@ -9,10 +9,10 @@ import Filter from '../Filter';
 import Alert from '../Alert';
 import FilterOptions from '../FilterOptions';
 import TicketList from '../TicketList';
-import { schLoad, loadTicks, loadCur, showMessage, setSuccess } from '../store/actions';
+import { searchIdLoad, loadTickets,  setSuccess } from '../store/actions';
 import Loader from '../Loader';
 
-const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccessStatus }) => {
+const AppAviasales = ({ state, initSearchIdLoad, initLoadTickets, setSuccessStatus }) => {
 
   const [serverError, setServerError] = useState(false);
 
@@ -31,9 +31,9 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
       .then((res) => res.json())
       .then((json) => {
         
-        searchIdLoad(json.searchId);
+        initSearchIdLoad(json.searchId);
       })
-      .catch( () => setSuccess(false))
+      .catch( () => setSuccessStatus(false))
   }, []);
 
   async function subscribe() {
@@ -50,7 +50,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
     } else {
       const ticksPart = await response.json();
 
-      ticketsLoad(ticksPart.tickets);
+      initLoadTickets(ticksPart.tickets);
       if (!ticksPart.stop) {
         await subscribe();
       } else {
@@ -83,7 +83,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
 
         <FilterOptions />
         {
-          !ticks.length ? <div class='app-aviasales__note'>Рейсов, подходящих под заданные фильтры, не найдено</div> : null
+          !ticks.length ? <div className='app-aviasales__note'>Рейсов, подходящих под заданные фильтры, не найдено</div> : null
         }
         
         <TicketList displayTickets={ticks}/>
@@ -97,14 +97,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchIdLoad: (seId) => {
-      dispatch(schLoad(seId));
+    initSearchIdLoad: (searchId) => {
+      dispatch(searchIdLoad(searchId));
     },
-    ticketsLoad: (tcks) => {
-      dispatch(loadTicks(tcks));
-    },
-    setMessage: (value) => {
-      dispatch(showMessage(value));
+    initLoadTickets: (tickets) => {
+      dispatch(loadTickets(tickets));
     },  
     setSuccessStatus: (flag) => {
       dispatch(setSuccess(flag))

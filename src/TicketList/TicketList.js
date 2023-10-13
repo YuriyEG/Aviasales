@@ -1,6 +1,5 @@
-/* eslint-disable */
-
 import React, { useState } from 'react';
+/* eslint-disable-next-line */
 import { connect } from 'react-redux';
 
 import Ticket from '../Ticket';

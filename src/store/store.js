@@ -21,50 +21,35 @@ const initialState = {
 };
 // eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {
-  if (action.type === 'SCF') {
+  if (action.type === 'SET_SUCCESS') {
     return { ...state, success: action.flag };
   }
-  if (action.type === 'MSG') {
+  if (action.type === 'LOAD_MESSAGE') {
     return { ...state, message: action.value };
   }
-  if (action.type === 'APT') {
+  if (action.type === 'ADD_PAGES') {
     return { ...state, endPoint: state.endPoint + 5 };
   }
-  if (action.type === 'LCK') {
-    return { ...state, curTickets: [...action.tickets] };
-  }
-  if (action.type === 'LTK') {
+  if (action.type === 'LOAD_TICKETS') {
     const newList = [...state.tickets, ...action.tickets];
 
     return { ...state, tickets: newList };
   }
-  if (action.type === 'IDL') {
-    return { ...state, searchId: action.seId };
+  if (action.type === 'SEARCH_ID_LOAD') {
+    return { ...state, searchId: action.searchId };
   }
-  if (action.type === 'FTL') {
+  if (action.type === 'SET_FILTER_MODE') {
     return { ...state, filterMode: action.mode };
   }
-  if (action.type === 'BTL') {
+  if (action.type === 'SET_LOADING') {
     if (action.flag) {
       return { ...state, buttonLoading: action.flag };
     }
     return { ...state, buttonLoading: action.flag };
   }
-  if (action.type === 'ALL') {
-    const object = { modified: true, searchId: action.searchId };
-    return object;
-  }
-  if (action.type === 'TIC') {
-    const obj = JSON.parse(JSON.stringify(state));
-    obj.data = action.data;
-    return obj;
-  }
-  if (action.type === 'INC') {
-    const value = state.first + 1;
-    const x = { ...state, first: value };
-    return x;
-  }
-  if (action.type === 'SPS') {
+
+
+  if (action.type === 'SET_CHECKBOXES') {
     const { stops1, stops2, stops3, stopsAll, stopsFree } = state;
     if (action.mode === 'all' && stopsAll) {
       return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: false };
@@ -115,11 +100,6 @@ const reducer = (state = initialState, action) => {
     if (action.mode === '3' && stops3) {
       return { ...state, stops3: false, stopsAll: false };
     }
-
-
-
-
-
   }
 
   return state;

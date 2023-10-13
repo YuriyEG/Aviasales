@@ -3,9 +3,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fltMode } from '../store/actions';
+import { setFilterMode } from '../store/actions';
 
-const Filter = ({ state, switchMode }) => {
+const Filter = ({ state, initSetFilterMode }) => {
   let lowClass;
   let fstClass;
   let optClass;
@@ -23,7 +23,7 @@ const Filter = ({ state, switchMode }) => {
   }
 
   return (
-    <div className="filter" onClick={switchMode}>
+    <div className="filter" onClick={initSetFilterMode}>
       <div className="filter__tab" style={lowClass} id="low">
         САМЫЙ ДЕШЕВЫЙ
       </div>
@@ -42,9 +42,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    switchMode: (e) => {
+    initSetFilterMode: (e) => {
       setTimeout(() => {
-        dispatch(fltMode(e.target.id));
+        dispatch(setFilterMode(e.target.id));
       }, 50);
       
     },

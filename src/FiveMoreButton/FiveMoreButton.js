@@ -1,19 +1,17 @@
-/* eslint-disable */
 import React from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
+/* eslint-disable-next-line */
 import { connect } from 'react-redux';
 
-import { buttLoad, changePoint } from '../store/actions';
+import { setLoading, addPages } from '../store/actions';
 
-
-const FiveMoreButton = ({ state, buttonLoading }) => {
-
+const FiveMoreButton = ({ state, initSetLoading }) => {
   const antIcon = <LoadingOutlined style={{ fontSize: 30, color: 'white' }} spin />;
 
   return (
     <div>
-      <button className="five-more-button"  onClick={buttonLoading}>
+      <button className="five-more-button" onClick={initSetLoading}>
         {state.buttonLoading ? <Spin indicator={antIcon} /> : 'ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ! '}
       </button>
     </div>
@@ -25,12 +23,12 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    buttonLoading: () => {
-        dispatch(buttLoad(true));
-        setTimeout(() => {
-          dispatch(changePoint());
-          dispatch(buttLoad(false));
-        }, 500);
+    initSetLoading: () => {
+      dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(addPages());
+        dispatch(setLoading(false));
+      }, 500);
     },
   };
 };
