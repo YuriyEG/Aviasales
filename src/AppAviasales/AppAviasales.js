@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useState, useEffect, Suspense } from 'react';
+import getSortedList from '../sortFilter';
 import { connect } from 'react-redux';
 import { Online, Offline } from 'react-detect-offline';
 
@@ -23,97 +24,7 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
   }
 
 
-  let displayTickets;
-  if (state.filterMode === 'opt') {
-      displayTickets = [...state.tickets];
-  }
-  if (state.filterMode === 'low') {
-      displayTickets = [...state.tickets].sort( (a, b) => a.price - b.price );
-      
-  }
-  if (state.filterMode === 'fst') {
-      displayTickets = [...state.tickets].sort( (a, b) => a.segments[0].duration - b.segments[0].duration );
-  }
-
-  let displayTickets2;
-  if (state.stopsAll === true ) {
-      displayTickets2 = [...displayTickets];
-  } 
-  if (state.stopsFree === true ) {
-      displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 0 )
-  }
-  if (state.stops1 === true &&
-      state.stops2 === false &&
-      state.stops3 === false &&
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 1 )
-      }
-      if (state.stops1 === false &&
-          state.stops2 === true &&
-          state.stops3 === false &&
-          !state.stopsAll) {
-              displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 2 )
-          }
-  if (state.stops1 === false &&
-      state.stops2 === false &&
-      state.stops3 === true &&
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => node.segments[0].stops.length + node.segments[1].stops.length === 3 )
-      }
-  if (state.stops1 === true &&
-      state.stops2 === true &&
-      state.stops3 === false &&
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => {
-              let x = node.segments[0].stops.length + node.segments[1].stops.length;
-              if (x === 1 || x === 2) {
-                  return true;
-              } else {
-                  return false;
-              }
-          } )
-      }
-  if (state.stops1 === true &&
-      state.stops2 === true &&
-      state.stops3 === true &&
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => {
-              let x = node.segments[0].stops.length + node.segments[1].stops.length;
-              if (x === 1 || x === 2 || x === 3) {
-                  return true;
-              } else {
-                  return false;
-              }
-          } )
-      }
-  if (state.stops1 === true &&
-      state.stops2 === false &&
-      state.stops3 === true &&
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => {
-              let x = node.segments[0].stops.length + node.segments[1].stops.length;
-              if (x === 1 ||  x === 3) {
-                  return true;
-              } else {
-                  return false;
-              }
-          } )
-      }
-  if (state.stops1 === false &&
-      state.stops2 === true &&
-      state.stops3 === true && 
-      !state.stopsAll ) {
-          displayTickets2 = [...displayTickets].filter( node => {
-              let x = node.segments[0].stops.length + node.segments[1].stops.length;
-              if ( x === 2 || x === 3 ) {
-                  return true;
-              } else {
-                  return false;
-              }
-          } )
-      }
-
-
+  let ticks = getSortedList(state);
 
   useEffect(() => {
     fetch('https://aviasales-test-api.kata.academy/search')
@@ -171,11 +82,11 @@ const AppAviasales = ({ state, searchIdLoad, ticketsLoad, setMessage, setSuccess
         
 
         <FilterOptions />
-        {/* {
-          !displayTickets2.length ? <div class='app-aviasales__note'>Рейсов, подходящих под заданные фильтры, не найдено</div> : null
-        } */}
+        {
+          !ticks.length ? <div class='app-aviasales__note'>Рейсов, подходящих под заданные фильтры, не найдено</div> : null
+        }
         
-        <TicketList displayTickets={displayTickets2}/>
+        <TicketList displayTickets={ticks}/>
       </div>
     </div>
   );

@@ -1,18 +1,18 @@
 /* eslint-disable */
 
 import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit';
+import { act } from 'react-dom/test-utils';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-
 
 const initialState = {
   filterMode: 'opt',
   searchId: null,
   tickets: [],
-  stops1: true,
-  stops2: true,
-  stops3: true,
-  stopsAll: true,
+  stops1: false,
+  stops2: false,
+  stops3: false,
+  stopsAll: false,
   stopsFree: false,
   buttonLoading: false,
   endPoint: 5,
@@ -22,19 +22,18 @@ const initialState = {
 // eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {
   if (action.type === 'SCF') {
-    return { ...state, success: action.flag }
+    return { ...state, success: action.flag };
   }
   if (action.type === 'MSG') {
-    return { ...state, message: action.value }
+    return { ...state, message: action.value };
   }
   if (action.type === 'APT') {
-    return { ...state, endPoint: state.endPoint + 5 }
+    return { ...state, endPoint: state.endPoint + 5 };
   }
   if (action.type === 'LCK') {
     return { ...state, curTickets: [...action.tickets] };
   }
   if (action.type === 'LTK') {
-
     const newList = [...state.tickets, ...action.tickets];
 
     return { ...state, tickets: newList };
@@ -67,170 +66,80 @@ const reducer = (state = initialState, action) => {
   }
   if (action.type === 'SPS') {
     const { stops1, stops2, stops3, stopsAll, stopsFree } = state;
-    if (action.mode === 'all' || action.mode === 'all-2') {
-      if (!stopsAll) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (stops1 && stops2 && stops3 && stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: true };
-      }
-      if (!stops1 && !stops2 && !stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (!stops1 && stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
+    if (action.mode === 'all' && stopsAll) {
+      return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: false };
     }
-    if (action.mode === 'no_stops') {
-      if (!stopsFree) {
-        return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: true };
-      }
-      if (stops1 && stops2 && stops3 && stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: true };
-      }
-      if (!stops1 && !stops2 && !stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: false };
-      }
-      if (stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: true };
-      }
-      if (!stops1 && stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: true };
-      }
+    if (action.mode === 'all' && !stopsAll) {
+      return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: true };
     }
 
-    if (action.mode === '1') {
-      if (stops1 && !stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stopsFree: true };
+
+    if (action.mode === 'no_stops' && !stopsFree) {
+      if (stops1 && stops2 && stops3) {
+        return { ...state, stopsFree: true, stopsAll: true  };
       }
-      if (!stops1 && !stops2 && !stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stopsFree: false };
-      }
-      if (stops1 && stops2 && stops3 && stopsAll && !stopsFree) {
-        return { ...state, stops1: false, stopsAll: false };
-      }
-      if (!stops1 && stops2 && stops3 && !stopsAll && !stopsFree) {
+      return { ...state, stopsFree: true }
+      
+    }
+    if (action.mode === 'no_stops' && stopsFree ) {
+      return { ...state, stopsFree: false, stopsAll: false  };
+    }
+
+
+    if (action.mode === '1' && !stops1) {
+      if (stops2 && stops3 && stopsFree) {
         return { ...state, stops1: true, stopsAll: true };
       }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true };
-      }
-      if (stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: false };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stopsFree: false };
-      }
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true };
-      }
-      if (stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: false };
-      }
+      return { ...state, stops1: true };
+    }
+    if (action.mode === '1' && stops1) {
+      return { ...state, stops1: false, stopsAll: false };
     }
 
-    if (action.mode === '2') {
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops2: false, stopsFree: true };
-      }
-      if (!stops1 && !stops2 && !stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops2: true, stopsFree: false };
-      }
-      if (stops1 && stops2 && stops3 && stopsAll && !stopsFree) {
-        return { ...state, stops2: false, stopsAll: false };
-      }
-      if (!stops1 && stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops2: false, stopsAll: false };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops2: true, stopsAll: false };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true };
-      }
-      if (stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
+    if (action.mode === '2' && !stops2) {
+      if (stops1 && stops3 && stopsFree) {
         return { ...state, stops2: true, stopsAll: true };
       }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stopsFree: false };
-      }
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true };
-      }
-      if (stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops2: false };
-      }
-      if (stops1 && !stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops2: true };
-      }
+      return { ...state, stops2: true };
     }
-    if (action.mode === '3') {
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: true, stopsFree: false };
-      }
-      if (!stops1 && !stops2 && !stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops3: true, stopsFree: false };
-      }
-      if (stops1 && stops2 && stops3 && stopsAll && !stopsFree) {
-        return { ...state, stops3: false, stopsAll: false };
-      }
-      if (!stops1 && stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: false, stopsAll: false };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: false, stopsFree: true };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops1: true };
-      }
-      if (stops1 && !stops2 && stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: false, stopsAll: false };
-      }
-      if (!stops1 && !stops2 && stops3 && !stopsAll && stopsFree) {
-        return { ...state, stops1: true, stopsFree: false };
-      }
-      if (!stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
+    if (action.mode === '2' && stops2) {
+      return { ...state, stops2: false, stopsAll: false };
+    }
+
+    if (action.mode === '3' && !stops3) {
+      if (stops1 && stops2 && stopsFree) {
         return { ...state, stops3: true, stopsAll: true };
       }
-      if (stops1 && stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: true, stopsAll: true };
-      }
-      if (stops1 && !stops2 && !stops3 && !stopsAll && !stopsFree) {
-        return { ...state, stops3: true, stopsAll: false };
-      }
+      return { ...state, stops3: true };
     }
+    if (action.mode === '3' && stops3) {
+      return { ...state, stops3: false, stopsAll: false };
+    }
+
+
+
+
+
   }
 
   return state;
 };
 
 const composeEnhancers =
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    }) : compose;
-
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
 
 function loggerMiddleWare(store) {
-  return function(next) {
-    return function(action) {
+  return function (next) {
+    return function (action) {
       const result = next(action);
-      console.log('middleware: ',result);
+      console.log('middleware: ', result);
       return result;
-    }
-  }
+    };
+  };
 }
 
 const store = configureStore({ reducer }, composeEnhancers(applyMiddleware(loggerMiddleWare, thunk)));
-
 
 export default store;

@@ -1,6 +1,6 @@
 @font-face {
     font-family: Regular;
-    src: url('./OpenSans-Regular.ttf') format('truetype');
+    src: url('../assets/OpenSans-Regular.ttf') format('truetype');
 }
 
 @media screen and (max-width: 500px) {
@@ -64,7 +64,7 @@
     
     .checked  {
         border: 1px solid rgba(33, 150, 243, 1);
-        background-image: url('./Shape.svg');
+        background-image: url('../assets/Shape.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
     }
@@ -160,7 +160,7 @@
     
     .checked  {
         border: 1px solid rgba(33, 150, 243, 1);
-        background-image: url('./Shape.svg');
+        background-image: url('../assets/Shape.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
     }
@@ -240,7 +240,7 @@
     
     .checked  {
         border: 1px solid rgba(33, 150, 243, 1);
-        background-image: url('./Shape.svg');
+        background-image: url('../assets/Shape.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
     }

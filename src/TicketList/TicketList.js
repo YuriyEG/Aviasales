@@ -17,7 +17,7 @@ const TicketList = ({ state, displayTickets }) => {
       {ready ? (
         <div>
           {cur.map((ticket) => (
-            <Ticket ticket={ticket} key={Date.now() * Math.random()} />
+            <Ticket ticket={ticket} key={cur.indexOf(ticket)} />
           ))}
           <FiveMoreButton />
         </div>

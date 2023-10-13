@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: "Medium";
-    src: url("OpenSans-Medium.ttf") format("truetype");
+    src: url("../assets/OpenSans-Medium.ttf") format("truetype");
     font-weight: 900;
 }
 
@@ -27,7 +27,7 @@
     
     
     .app-aviasales__logo {
-        background-image: url('./Logo.svg');
+        background-image: url('../assets/Logo.svg');
         width: 90px;
         height: 90px;
         background-repeat: no-repeat;
@@ -58,7 +58,7 @@
     
     
     .app-aviasales__logo {
-        background-image: url('./Logo.svg');
+        background-image: url('../assets/Logo.svg');
         width: 90px;
         height: 90px;
         background-repeat: no-repeat;
@@ -84,6 +84,6 @@
     box-sizing: border-box;
     padding-left: 20px;
     padding-right: 20px;
-    margin-bottom: 20px;
-    margin-top: 60px;
+    margin-bottom: 40px;
+    margin-top: 40px;
 }
