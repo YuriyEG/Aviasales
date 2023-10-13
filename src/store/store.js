@@ -1,8 +1,5 @@
-/* eslint-disable */
-
 import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
-import { composeWithDevTools } from 'redux-devtools-extension';
+/* eslint-disable-next-line */
 import thunk from 'redux-thunk';
 
 const initialState = {
@@ -48,56 +45,52 @@ const reducer = (state = initialState, action) => {
     return { ...state, buttonLoading: action.flag };
   }
 
-
   if (action.type === 'SET_CHECKBOXES') {
     const { stops1, stops2, stops3, stopsAll, stopsFree } = state;
-    if (action.mode === 'all' && stopsAll) {
+    if (action.checkbox === 'all' && stopsAll) {
       return { ...state, stops1: false, stops2: false, stops3: false, stopsAll: false, stopsFree: false };
     }
-    if (action.mode === 'all' && !stopsAll) {
+    if (action.checkbox === 'all' && !stopsAll) {
       return { ...state, stops1: true, stops2: true, stops3: true, stopsAll: true, stopsFree: true };
     }
 
-
-    if (action.mode === 'no_stops' && !stopsFree) {
+    if (action.checkbox === 'no_stops' && !stopsFree) {
       if (stops1 && stops2 && stops3) {
-        return { ...state, stopsFree: true, stopsAll: true  };
+        return { ...state, stopsFree: true, stopsAll: true };
       }
-      return { ...state, stopsFree: true }
-      
+      return { ...state, stopsFree: true };
     }
-    if (action.mode === 'no_stops' && stopsFree ) {
-      return { ...state, stopsFree: false, stopsAll: false  };
+    if (action.checkbox === 'no_stops' && stopsFree) {
+      return { ...state, stopsFree: false, stopsAll: false };
     }
 
-
-    if (action.mode === '1' && !stops1) {
+    if (action.checkbox === '1' && !stops1) {
       if (stops2 && stops3 && stopsFree) {
         return { ...state, stops1: true, stopsAll: true };
       }
       return { ...state, stops1: true };
     }
-    if (action.mode === '1' && stops1) {
+    if (action.checkbox === '1' && stops1) {
       return { ...state, stops1: false, stopsAll: false };
     }
 
-    if (action.mode === '2' && !stops2) {
+    if (action.checkbox === '2' && !stops2) {
       if (stops1 && stops3 && stopsFree) {
         return { ...state, stops2: true, stopsAll: true };
       }
       return { ...state, stops2: true };
     }
-    if (action.mode === '2' && stops2) {
+    if (action.checkbox === '2' && stops2) {
       return { ...state, stops2: false, stopsAll: false };
     }
 
-    if (action.mode === '3' && !stops3) {
+    if (action.checkbox === '3' && !stops3) {
       if (stops1 && stops2 && stopsFree) {
         return { ...state, stops3: true, stopsAll: true };
       }
       return { ...state, stops3: true };
     }
-    if (action.mode === '3' && stops3) {
+    if (action.checkbox === '3' && stops3) {
       return { ...state, stops3: false, stopsAll: false };
     }
   }
@@ -105,6 +98,7 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
+/* eslint-disable */
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -119,7 +113,7 @@ function loggerMiddleWare(store) {
     };
   };
 }
-
+/* eslint-enable */
 const store = configureStore({ reducer }, composeEnhancers(applyMiddleware(loggerMiddleWare, thunk)));
 
 export default store;

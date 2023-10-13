@@ -1,4 +1,4 @@
-export const setCheckBoxes = (mode) => ({ type: 'SET_CHECKBOXES', mode });
+export const setCheckBoxes = (checkbox) => ({ type: 'SET_CHECKBOXES', checkbox });
 export const loadMessage = (value) => ({ type: 'LOAD_MESSAGE', value });
 export const setLoading = (flag) => ({ type: 'SET_LOADING', flag });
 export const addPages = () => ({ type: 'ADD_PAGES' });
