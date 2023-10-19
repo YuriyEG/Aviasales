@@ -44,8 +44,6 @@ const AppAviasales = ({ state, initSearchIdLoad, initLoadTickets, setSuccessStat
       
       await subscribe();
     } else if (response.status !== 200) {
-      /* eslint-disable-next-line */
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       await subscribe();
     } else {
       const ticksPart = await response.json();
@@ -53,10 +51,7 @@ const AppAviasales = ({ state, initSearchIdLoad, initLoadTickets, setSuccessStat
       initLoadTickets(ticksPart.tickets);
       if (!ticksPart.stop) {
         await subscribe();
-      } else {
-        /* eslint-disable-next-line */
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
+      } 
     }
   }
   useEffect(() => {
