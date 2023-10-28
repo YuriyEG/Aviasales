@@ -69,7 +69,6 @@ const AppAviasales = ({ state, initSearchIdLoad, initLoadTickets, setSuccessStat
        
         
         <Filter />
-        { serverError ? <Alert message={'Ошибка сервера'}/> : null }
         <Offline>
           <Alert message={'Нет соединения'}/>
         </Offline>
